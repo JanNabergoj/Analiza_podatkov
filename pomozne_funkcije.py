@@ -1,6 +1,7 @@
 import os
 import requests
 import random
+import time
 
 
 
@@ -44,8 +45,14 @@ def shrani_html(url, ime_dat):
         with open(ime_dat, "w", encoding="utf-8") as dat:
             dat.write(r.text)
         print("Shranjeno")
+        time.sleep(random.random())
     else:
         print(f"Napaka: {r.status_code}")
+
+
+def preberi_datoteko(datoteka):
+    with open(datoteka, "r", encoding="utf-8") as dat:
+        return dat.read()
 
 
 
