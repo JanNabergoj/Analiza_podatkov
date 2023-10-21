@@ -11,6 +11,7 @@ def pripravi_imenik(ime_dat):
         os.makedirs(imenik, exist_ok=True)
 
 
+
 user_agents = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 Edg/117.0.2045.60",
     "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko",
@@ -38,6 +39,7 @@ def random_headers(sez):
     }
 
 
+
 def shrani_html(url, ime_dat):
     r = requests.get(url, random_headers(user_agents))
     if r.status_code == 200:
@@ -50,9 +52,14 @@ def shrani_html(url, ime_dat):
         print(f"Napaka: {r.status_code}")
 
 
+
 def preberi_datoteko(datoteka):
     with open(datoteka, "r", encoding="utf-8") as dat:
         return dat.read()
+    
+
+
+
 
 
 

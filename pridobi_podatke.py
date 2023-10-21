@@ -1,6 +1,7 @@
 import re
 import os
 import pomozne_funkcije
+import csv
 
 
 vzorec_bloka = re.compile(
@@ -96,9 +97,12 @@ def pocisti_podatke(sez_bark):
             slovar["sirina"] = float(sirina)
         except ValueError:
             if slovar["dolzina_sirina"][0].isdigit() and "m" in slovar["dolzina_sirina"]:
-                dolzina = float(slovar["dolzina_sirina"].rstrip(" m"))
+                slovar["dolzina"] = float(slovar["dolzina_sirina"].rstrip(" m"))
+                del slovar["dolzina_sirina"]
             else:
-                slovar["dolzina_sirina"] = None
+                del slovar["dolzina_sirina"]
+                slovar["dolzina"] = None
+                slovar["sirina"] = None
 
         if slovar["st_ur"] != None and "'" in slovar["st_ur"]:
             nove_ure = slovar["st_ur"].replace("'", "")
@@ -116,12 +120,31 @@ def pocisti_podatke(sez_bark):
                 slovar["cena"] = None
 
         nov_sez.append(slovar)
-    print(nov_sez)
     return nov_sez
 
 
 
-pocisti_podatke(izlusci_podatke())
+podatki = izlusci_podatke()
+pocisceni_podatki = pocisti_podatke(podatki)
+
+
+
+imena = ["id", "ime_barke", "tip_barke", "cena", "dolzina", "sirina", "letnik", "st_kabin", "st_ur", "drzava"]
+
+
+def zapisi_csv(csv_dat="podatki_bark.csv", sez=pocisceni_podatki, imena_polj = imena):
+    with open(csv_dat, "w", encoding="utf-8") as dat:
+        writer = csv.DictWriter(dat, fieldnames=imena_polj)
+        writer.writeheader()
+        for slovar in sez:
+            writer.writerow(slovar)
+    print("Končano")
+
+
+
+zapisi_csv()
+
+
 
 
 
