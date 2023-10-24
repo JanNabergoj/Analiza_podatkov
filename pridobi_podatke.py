@@ -4,6 +4,7 @@ import pomozne_funkcije
 import csv
 
 
+
 vzorec_bloka = re.compile(
     r'<div>.*?'
     r'<div id="specs">.*?'

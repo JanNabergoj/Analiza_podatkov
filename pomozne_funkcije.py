@@ -53,6 +53,7 @@ def shrani_html(url, ime_dat):
 
 
 
+
 def preberi_datoteko(datoteka):
     with open(datoteka, "r", encoding="utf-8") as dat:
         return dat.read()
